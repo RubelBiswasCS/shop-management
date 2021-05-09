@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 
+
 class Product(models.Model):
     #product code, name, category, unit price, current stock
     product_code = models.IntegerField()

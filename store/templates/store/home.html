@@ -10,10 +10,12 @@
             <div class="form-title">
 
             </div>
-            <form action="/your-name/" method="POST">
+            <form  method="POST">
                 {% csrf_token %}
+                
                 <fieldset>
-                  
+                {{ form.as_p }}
+                <!--
                   <label for="product_code">Product Code:</label>
                   <input type="number" id="product_code" name="product_code"><br><br>
                   <label for="name">Name:</label>
@@ -24,10 +26,13 @@
                   <input type="number" id="unit_price" name="unit_price"><br><br>
                   <label for="current_stock">Current Stock:</label>
                   <input type="number" id="current_stock" name="unit_price"><br><br>
+                -->
+
+                
                   <button type="submit" formaction="https://www.w3schools.com/tags/att_button_formaction.asp">Cancle</button> 
                   <input type="submit" value="Submit">
                 </fieldset>
-              </form> 
+            </form> 
         
         </div>
         <div class="div-right">
