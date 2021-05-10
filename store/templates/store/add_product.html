@@ -1,0 +1,30 @@
+{% extends "store/home.html" %}
+
+{% block info %}
+    <div class="form-title">
+        <h2>Add Product</h2>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+
+        <fieldset>
+            {{ form.as_p }}
+            <!--
+        <label for="product_code">Product Code:</label>
+        <input type="number" id="product_code" name="product_code"><br><br>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category"><br><br>
+        <label for="unit_price">Unit Price:</label>
+        <input type="number" id="unit_price" name="unit_price"><br><br>
+        <label for="current_stock">Current Stock:</label>
+        <input type="number" id="current_stock" name="unit_price"><br><br>
+        -->
+
+
+            <button type="submit" formaction="https://www.w3schools.com/tags/att_button_formaction.asp">Cancle</button>
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
+{% endblock%}

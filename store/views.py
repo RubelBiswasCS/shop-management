@@ -7,7 +7,7 @@ from django.views.generic import (
 from .models import Product
 from .forms import NameForm
 
-'''
+
 def home(request):
     products = Product.objects.all()
     #template = loader.get_template('polls/index.html')
@@ -15,7 +15,6 @@ def home(request):
         'products': products,
     }
     return render(request,'store/home.html',context)
-'''
     
 
 class ProductListView(ListView):
@@ -24,7 +23,7 @@ class ProductListView(ListView):
     context_object_name =  'products'
 
 
-def get_name(request):
+def add_product(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
@@ -50,4 +49,20 @@ def get_name(request):
     else:
         form = NameForm()
 
-    return render(request, 'store/home.html', {'form': form})
+    return render(request, 'store/add_product.html', {'form': form})
+
+def manage_product(request):
+    products = Product.objects.all()
+    #template = loader.get_template('polls/index.html')
+    context = {
+        'products': products,
+    }
+    return render(request,'store/manage_product.html',context)
+
+def added_product(request):
+    products = Product.objects.all()
+    #template = loader.get_template('polls/index.html')
+    context = {
+        'products': products,
+    }
+    return render(request,'store/added_product.html',context)          
