@@ -152,3 +152,28 @@ h1{
   
   .product-table tr:hover {color:  rgb(231, 11, 11);}
   
+  .fieldWrapper {
+    margin-right: auto; /* 1 */
+    margin-left:  auto; /* 1 */
+  
+    max-width: 960px; /* 2 */
+  
+    padding-right: 10px; /* 3 */
+    padding-left:  10px; /* 3 */
+  }
+  .form-lnf{
+    position: relative;
+    margin-top: 1%;
+    width: 100%;
+    padding-left: 5%;
+  }
+  .form-l{
+      position: relative;
+      float:left;
+      width:50%;
+  }
+  .form-f{
+      position: relative;
+      float: left;
+      width: 50%;;
+  }

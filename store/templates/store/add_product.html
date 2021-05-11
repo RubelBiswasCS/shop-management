@@ -8,19 +8,24 @@
         {% csrf_token %}
 
         <fieldset>
-            {{ form.as_p }}
-            <!--
-        <label for="product_code">Product Code:</label>
-        <input type="number" id="product_code" name="product_code"><br><br>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="category">Category:</label>
-        <input type="text" id="category" name="category"><br><br>
-        <label for="unit_price">Unit Price:</label>
-        <input type="number" id="unit_price" name="unit_price"><br><br>
-        <label for="current_stock">Current Stock:</label>
-        <input type="number" id="current_stock" name="unit_price"><br><br>
-        -->
+            {% for field in form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+                <div class="form-lnf">
+                   <div class="form-l">
+                    {{ field.label_tag }}
+                   </div >
+                   <div class="form-f">
+                    {{ field }}
+                   </div>
+
+                </div>
+                
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
 
 
              <a href="{% url 'add-product' %}" class="button-1">Cancel</a>
