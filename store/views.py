@@ -15,7 +15,16 @@ def home(request):
         'products': products,
     }
     return render(request,'store/all_products.html',context)
-    
+
+
+def delete_product(request):
+
+    products = Product.objects.all()
+   
+    context = {
+        'products': products,
+    }
+    return render(request,'store/delete_product_view.html',context)   
 
 class ProductListView(ListView):
     model = Product
@@ -50,6 +59,15 @@ def add_product(request):
         form = NameForm()
 
     return render(request, 'store/add_product.html', {'form': form})
+
+def update_product(request):
+    products = Product.objects.all()
+   
+    context = {
+        'products': products,
+    }
+    return render(request,'store/update_product_view.html',context)   
+
 
 def manage_product(request):
     products = Product.objects.all()

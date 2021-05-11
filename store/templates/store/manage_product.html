@@ -3,6 +3,6 @@
 {% block product %}
     <a href="{% url 'add-product' %}" class="button-1">Add Product</a>
     <a href="{% url 'all-products' %}" class="button-1">All Products</a>
-    <a href="#" class="button-1">Update Product</a>
-    <a href="#" class="button-1">Delete Product</a>
+    <a href="{% url 'update-product' %}" class="button-1">Update Product</a>
+    <a href="{% url 'delete-product' %}" class="button-1">Delete Product</a>
 {% endblock product %}
