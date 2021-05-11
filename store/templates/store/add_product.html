@@ -1,4 +1,4 @@
-{% extends "store/home.html" %}
+{% extends "store/manage_product.html" %}
 
 {% block info %}
     <div class="form-title">
@@ -23,8 +23,8 @@
         -->
 
 
-            <button type="submit" formaction="https://www.w3schools.com/tags/att_button_formaction.asp">Cancle</button>
-            <input type="submit" value="Submit">
+             <a href="{% url 'add-product' %}" class="button-1">Cancel</a>
+            <input class="button-1" type="submit" value="Submit">
         </fieldset>
     </form>
 {% endblock%}

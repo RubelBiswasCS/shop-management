@@ -1,0 +1,9 @@
+{% extends "store/manage_product.html" %}
+
+{% block info %}
+{% for product in products %}
+<article class="media content-section">
+    <h3>{{product.name}}</h3>
+</article>
+{% endfor %}
+{% endblock%}

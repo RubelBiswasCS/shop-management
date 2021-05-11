@@ -1,7 +1,8 @@
 {% extends "store/home.html" %}
 
 {% block product %}
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque aspernatur pariatur natus amet corporis adipisci
-        beatae reiciendis expedita vitae ratione, quis minima ullam, quos velit quia distinctio cumque, suscipit magnam?
-    </p>
+    <a href="{% url 'add-product' %}" class="button-1">Add Product</a>
+    <a href="{% url 'all-products' %}" class="button-1">All Products</a>
+    <a href="#" class="button-1">Update Product</a>
+    <a href="#" class="button-1">Delete Product</a>
 {% endblock product %}

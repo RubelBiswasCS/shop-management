@@ -14,7 +14,7 @@ def home(request):
     context = {
         'products': products,
     }
-    return render(request,'store/home.html',context)
+    return render(request,'store/all_products.html',context)
     
 
 class ProductListView(ListView):

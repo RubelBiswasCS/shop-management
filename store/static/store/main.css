@@ -50,7 +50,7 @@ h1{
     background-color: rgb(139, 219, 202);
     height: 600px;
     width: 20%;
-    
+    padding-top: 10px;
 }
 .div-center{
     position: relative;
@@ -70,6 +70,7 @@ h1{
     background-color: rgb(139, 219, 202);
     height: 600px;
     width: 20%;
+    padding-top: 10px;
 }
 .form-title{
     position:relative;
@@ -81,7 +82,16 @@ h1{
     margin-bottom: 1%;
 }
 .button-1{
-    background-color: rgb(35, 41, 126);
-    height: 2px;
-    width:80%
+    background-color: #094d75;
+    border: none;
+    color: white;
+    padding: 5px 20px;
+    width: 90%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 1% 5% 1% 5%;
+    cursor: pointer;
+    border: 1px solid black;
 }
