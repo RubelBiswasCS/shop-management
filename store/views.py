@@ -110,11 +110,17 @@ def update_product_view(request, product_code):
         unit_price = form.cleaned_data['unit_price']
         current_stock = form.cleaned_data['current_stock']
 
+        
+       
+        Product.objects.filter(product_code=product_code).update(
+        
+        name=name,
+        category=category,
+        unit_price=unit_price,
+        current_stock=current_stock
+    )
 
-        form = Product(product_code=product_code,
-        name=name,category=category,unit_price=unit_price,
-        current_stock=current_stock)
-        form.save()
+        
         # ...
         # redirect to a new URL:
         return HttpResponseRedirect('/update_product/')
