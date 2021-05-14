@@ -1,0 +1,8 @@
+{% extends "store/home.html" %}
+
+{% block left_div %}
+    <a href="{% url 'create-order' %}" class="button-1">Create Order</a>
+    <a href="{% url 'view-order' %}" class="button-1">Order History</a>
+    <a href="#" class="button-1">Edit Order</a>
+    <a href="#" class="button-1">Cancle Order</a>
+{% endblock %}

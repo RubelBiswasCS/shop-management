@@ -15,4 +15,12 @@ class Product(models.Model):
         return self.name
 
 
-    
+class Order(models.Model):
+    #customer name, phone and email.
+    order_id = models.IntegerField(unique=True)
+    customer_name =  models.CharField(max_length=100)
+    phone = models.CharField(max_length=14)
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.customer_name

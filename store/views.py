@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from .models import Product
-from .forms import NameForm
+from .models import Product,Order
+from .forms import OrderForm,ProductForm
 from django.contrib.auth.decorators import login_required
 
 
@@ -50,7 +50,7 @@ def add_product(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
-        form = NameForm(request.POST)
+        form = ProductForm(request.POST)
         
         # check whether it's valid:
         if form.is_valid():
@@ -71,7 +71,7 @@ def add_product(request):
 
     # if a GET (or any other method) we'll create a blank form
     else:
-        form = NameForm()
+        form = ProductForm()
 
     return render(request, 'store/add_product.html', {'form': form})
 
@@ -97,7 +97,7 @@ def update_product_view(request, pk):
         }
     # create a form instance and populate it with data from the request:
 
-    form = NameForm(request.POST or None, initial = initial_dict)
+    form = ProductForm(request.POST or None, initial = initial_dict)
     # check whether it's valid:
     
     if form.is_valid():
@@ -144,4 +144,43 @@ def added_product(request):
     context = {
         'products': products,
     }
-    return render(request,'store/added_product.html',context)          
+    return render(request,'store/added_product.html',context)   
+
+
+
+def manage_order(request):
+    orders = Order.objects.all()
+    #template = loader.get_template('polls/index.html')
+    context = {
+        'orders': orders,
+    }
+    return render(request,'store/view_order.html',context) 
+
+def create_order(request):
+
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form_o = OrderForm(request.POST)
+        
+        # check whether it's valid:
+        if form_o.is_valid():
+            # process the data in form.cleaned_data as required
+            order_id = form_o.cleaned_data['order_id']
+            customer_name = form_o.cleaned_data['customer_name']
+            phone = form_o.cleaned_data['phone']
+            email = form_o.cleaned_data['email']
+            
+            
+            p = Order(order_id=order_id,
+            customer_name=customer_name,phone=phone,email=email)
+            p.save()
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form_o = OrderForm()
+
+    
+    return render(request,'store/create_order.html',{'form_o': form_o})     

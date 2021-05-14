@@ -1,14 +1,14 @@
-{% extends "store/manage_product.html" %}
+{% extends "store/manage_order.html" %}
 
 {% block info %}
     <div class="form-title">
-        <h2>Update Product</h2>
+        <h2>Create Order</h2>
     </div>
     <form method="POST">
         {% csrf_token %}
 
         <fieldset>
-            {% for field in form %}
+            {% for field in form_o %}
             <div class="fieldWrapper">
                 {{ field.errors }}
                 <div class="form-lnf">
@@ -28,8 +28,9 @@
             {% endfor %}
 
 
-             <a href="{% url 'update-product' %}" class="button-1">Cancel</a>
+             <a href="{% url 'create-order' %}" class="button-1">Cancle</a>
             <input class="button-1" type="submit" value="Submit">
         </fieldset>
     </form>
-{% endblock%}
+
+{% endblock %}

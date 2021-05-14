@@ -2,9 +2,9 @@
 {% block content %}
     <div class="outer-div">
         <div class="div-left">
-            {% block product %}
+            {% block left_div %}
 
-            {% endblock product %}
+            {% endblock %}
            
         </div>
         <div class="div-center">
@@ -17,7 +17,7 @@
             <form action="{% url 'manage-product'  %}" method='GET'>
                 <button class="button-1"type='submit'>Product Management</button>
             </form>
-            <form action="{% url 'store-home'  %}" method='GET'>
+            <form action="{% url 'manage-order'  %}" method='GET'>
                 <button class= "button-1" type='submit'>Order Management</button>
             </form>
             <a href="#" class="button-1">Link Button</a>
