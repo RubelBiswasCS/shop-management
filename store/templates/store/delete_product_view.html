@@ -18,7 +18,7 @@
                     <td> {{ product.category }}</td>
                     <td> {{ product.unit_price }}</td>
                     <td> {{ product.current_stock }}</td>
-                    <td><a href="{% url 'confirm-delete-view' product.product_code %}" class="button-1 btn-sm danger">Delete</a></td>
+                    <td><a href="{% url 'confirm-delete-view' product.pk %}" class="button-1 btn-sm danger">Delete</a></td>
                 </tr> 
             {% endfor %}
         </table>

@@ -1,11 +1,8 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import (
-    ListView,
-    DetailView
-)
 from .models import Product
 from .forms import NameForm
+from django.contrib.auth.decorators import login_required
 
 
 def home(request):
@@ -25,13 +22,18 @@ def delete_product(request):
         'products': products,
     }
     return render(request,'store/delete_product_view.html',context)   
-def confirm_delete_view(request, product_code):
+def confirm_delete_view(request, pk):
     # dictionary for initial data with 
     # field names as keys
-    context ={}
+    
+   
+    
   
     # fetch the object related to passed id
-    obj = get_object_or_404(Product, product_code = product_code)
+    obj = get_object_or_404(Product, pk = pk)
+    context = {
+       'product': obj 
+    }
   
   
     if request.method =="POST":
@@ -43,17 +45,13 @@ def confirm_delete_view(request, product_code):
   
     return render(request, "confirm_delete_product.html", context)
 
-class ProductListView(ListView):
-    model = Product
-    template_name = 'store/home.html' #<app>/<model>_<viewtype>.html
-    context_object_name =  'products'
-
 
 def add_product(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
         # create a form instance and populate it with data from the request:
         form = NameForm(request.POST)
+        
         # check whether it's valid:
         if form.is_valid():
             # process the data in form.cleaned_data as required
@@ -62,7 +60,7 @@ def add_product(request):
             category = form.cleaned_data['category']
             unit_price = form.cleaned_data['unit_price']
             current_stock = form.cleaned_data['current_stock']
-
+            
             p = Product(product_code=product_code,
             name=name,category=category,unit_price=unit_price,
             current_stock=current_stock)
@@ -85,11 +83,11 @@ def update_product(request):
     }
     return render(request,'store/update_product_view.html',context)   
 
-def update_product_view(request, product_code):
+def update_product_view(request, pk):
     
     # if this is a POST request we need to process the form data
     
-    obj = get_object_or_404(Product, product_code = product_code)
+    obj = get_object_or_404(Product, pk = pk)
     initial_dict={
         'product_code' : obj.product_code,
         'name' : obj.name,
@@ -112,8 +110,8 @@ def update_product_view(request, product_code):
 
         
        
-        Product.objects.filter(product_code=product_code).update(
-        
+        Product.objects.filter(pk=pk).update(
+        product_code=product_code,
         name=name,
         category=category,
         unit_price=unit_price,

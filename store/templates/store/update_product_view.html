@@ -19,7 +19,7 @@
                     <td> {{ product.unit_price }}</td>
                     <td> {{ product.current_stock }}</td>
                     
-                    <td><a href="{% url 'update-product-view' product.product_code %}" class="button-1 btn-sm ">Update</a></td>
+                    <td><a href="{% url 'update-product-view' product.pk %}" class="button-1 btn-sm ">Update</a></td>
                 </tr> 
             {% endfor %}
         </table>
