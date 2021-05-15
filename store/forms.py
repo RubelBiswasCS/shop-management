@@ -1,4 +1,5 @@
 from django import forms
+import random
 
 
 class ProductForm(forms.Form):
@@ -9,7 +10,7 @@ class ProductForm(forms.Form):
     current_stock = forms.IntegerField()
 
 class OrderForm(forms.Form):
-    order_id = forms.IntegerField()
+    #order_id = forms.IntegerField()
     customer_name =  forms.CharField(max_length=100)
     phone = forms.CharField(max_length=14)
     email = forms.EmailField()

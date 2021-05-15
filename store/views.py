@@ -165,13 +165,13 @@ def create_order(request):
         # check whether it's valid:
         if form_o.is_valid():
             # process the data in form.cleaned_data as required
-            order_id = form_o.cleaned_data['order_id']
+            #order_id = form_o.cleaned_data['order_id']
             customer_name = form_o.cleaned_data['customer_name']
             phone = form_o.cleaned_data['phone']
             email = form_o.cleaned_data['email']
+            #order_id=order_id, into order
             
-            
-            p = Order(order_id=order_id,
+            p = Order(
             customer_name=customer_name,phone=phone,email=email)
             p.save()
             # ...
