@@ -1,4 +1,5 @@
 from django import forms
+from .models import Product
 import random
 
 
@@ -14,3 +15,4 @@ class OrderForm(forms.Form):
     customer_name =  forms.CharField(max_length=100)
     phone = forms.CharField(max_length=14)
     email = forms.EmailField()
+    p_name = forms.ChoiceField(label='Select Product',choices=list ((obj.product_code,obj.name) for obj in Product.objects.all()))

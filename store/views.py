@@ -169,10 +169,11 @@ def create_order(request):
             customer_name = form_o.cleaned_data['customer_name']
             phone = form_o.cleaned_data['phone']
             email = form_o.cleaned_data['email']
+            p_name = form_o.cleaned_data['p_name']
             #order_id=order_id, into order
             
             p = Order(
-            customer_name=customer_name,phone=phone,email=email)
+            customer_name=customer_name,phone=phone,email=email,p_name=p_name)
             p.save()
             # ...
             # redirect to a new URL:
