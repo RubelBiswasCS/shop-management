@@ -157,8 +157,10 @@ def manage_order(request):
     return render(request,'store/view_order.html',context) 
 
 def create_order(request):
+    orders = Order.objects.first()
 
     if request.method == 'POST':
+        
         # create a form instance and populate it with data from the request:
         form_o = OrderForm(request.POST)
         
@@ -184,4 +186,4 @@ def create_order(request):
         form_o = OrderForm()
 
     
-    return render(request,'store/create_order.html',{'form_o': form_o})     
+    return render(request,'store/create_order.html',{'form_o': form_o,'orders': orders,})     
