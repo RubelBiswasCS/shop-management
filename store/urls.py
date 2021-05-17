@@ -18,4 +18,6 @@ urlpatterns = [
     path('manage_order/',views.manage_order,name='manage-order'),
     path('create_order/',views.create_order,name='create-order'),
     path('view_order/',views.manage_order,name='view-order'),
+    path('<int:pk>/add_to_cart/', views.add_to_cart, name='add-to-cart'),
+
 ]

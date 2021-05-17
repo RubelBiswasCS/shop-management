@@ -1,8 +1,10 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from .models import Product,Order
-from .forms import OrderForm,ProductForm
+from .forms import OrderForm,ProductForm,ItemSelectForm
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
 
 
 def home(request):
@@ -157,7 +159,7 @@ def manage_order(request):
     return render(request,'store/view_order.html',context) 
 
 def create_order(request):
-    orders = Order.objects.first()
+    
 
     if request.method == 'POST':
         
@@ -171,19 +173,52 @@ def create_order(request):
             customer_name = form_o.cleaned_data['customer_name']
             phone = form_o.cleaned_data['phone']
             email = form_o.cleaned_data['email']
-            p_name = form_o.cleaned_data['p_name']
+            #p_name = form_o.cleaned_data['p_name']
             #order_id=order_id, into order
             
             p = Order(
-            customer_name=customer_name,phone=phone,email=email,p_name=p_name)
+            customer_name=customer_name,phone=phone,email=email)
             p.save()
+            pk = p.pk
             # ...
-            # redirect to a new URL:
-            return HttpResponseRedirect('')
+            # redirect to a new URL:kwargs={'app_label': 'auth'}
+            return HttpResponseRedirect(reverse('add-to-cart', kwargs={'pk':pk}))
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form_o = OrderForm()
+        #return HttpResponseRedirect(reverse('/add_to_cart/', kwargs={'pk':'pk'}))
 
     
-    return render(request,'store/create_order.html',{'form_o': form_o,'orders': orders,})     
+    return render(request,'store/create_order.html',{'form_o': form_o,})     
+
+
+def add_to_cart(request,pk):
+    orders = Order.objects.filter(pk=pk)#get_object_or_404(Order, pk = pk) #
+    #template = loader.get_template('polls/index.html')
+    form_i = ItemSelectForm(request.POST)
+    context = {
+        'orders': orders,
+        'form_i' : form_i
+    }
+
+    if form_i.is_valid():
+        # process the data in form.cleaned_data as required
+        
+        current_item = form_i.cleaned_data['p_name']
+        
+        all_item = get_object_or_404(Order, pk = pk).p_name
+        
+        all_item = list(all_item)
+        all_itme = all_item.append(str(current_item))
+        all_item = str(all_item)
+       
+        Order.objects.filter(pk=pk).update(
+        p_name=str(all_item)
+    )
+
+    # if a GET (or any other method) we'll create a blank form
+    
+
+    
+    return render(request,'store/cart.html',context)     

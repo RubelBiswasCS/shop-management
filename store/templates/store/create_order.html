@@ -26,11 +26,10 @@
                 {% endif %}
             </div>
             {% endfor %}
-            <button data-order="{{orders.order_id}}" data-action="add" class="btn btn-outline-secondary button-1 btn-sm update-cart">Add to Cart</button>
-
+            
 
              <a href="{% url 'create-order' %}" class="button-1">Cancle</a>
-            <input class="button-1" type="submit" value="Submit">
+            <input class="button-1" type="submit" value="Add Item">
         </fieldset>
     </form>
 
