@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from .models import Product,Order
+from .models import Product,Order,OrderItem
 from .forms import OrderForm,ProductForm,ItemSelectForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -197,13 +197,18 @@ def add_to_cart(request,pk):
     order = Order.objects.get(pk=pk)#get_object_or_404(Order, pk = pk) #
     #template = loader.get_template('polls/index.html')
     initial_dict = {
+        'product_code' : "Select Item", 
         'qty' : 1
     }
     
     
     form_i = ItemSelectForm(request.POST or None,initial=initial_dict)
+    context = {
+    'order': order,
+    'form_i' : form_i,
     
-
+    }
+    
     if form_i.is_valid():
         # process the data in form.cleaned_data as required
         
@@ -211,11 +216,31 @@ def add_to_cart(request,pk):
         qty = form_i.cleaned_data['qty']
 
         product = Product.objects.get(product_code = product_code)
-        item = product
-        item.current_stock=qty
-        item.save()
-        order.products.add(item)
         
+        if product.current_stock >= qty:
+
+            product.current_stock -= qty
+            product.save()
+
+            c_oi, created = OrderItem.objects.get_or_create( product__product_code = product_code,order__pk=pk)
+            qty += c_oi.qty
+            o_i = OrderItem(product=product,order = order, qty=qty)
+            o_i.save()
+
+            context = {
+                    'order': order,
+                    'form_i' : form_i,
+                    '0_i' : o_i,
+                    }
+                            
+            
+            #order.products.add(orderItem)
+            
+        return HttpResponseRedirect('')
+    else:
+        pass
+       
+
     
 
     
@@ -223,12 +248,9 @@ def add_to_cart(request,pk):
         #p_name=all_item)
 
         
-    p = order.products.all()
-    context = {
-    'order': order,
-    'form_i' : form_i,
-    'p' : p,
-    }
+    #p = order.products.all()
+   
+    
     # if a GET (or any other method) we'll create a blank form
     
     

@@ -125,11 +125,14 @@ h1{
 }
 .g-div{
     padding: 5px;
+    overflow: auto;
+    height: 100%;
 }
 .product-table{
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    
     
   }
   .product-table th {

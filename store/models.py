@@ -2,6 +2,7 @@ from django.db import models
 from django.urls import reverse
 import random
 
+
 def unique_order_id():
     not_unique = True
     while not_unique:
@@ -23,6 +24,9 @@ class Product(models.Model):
         return self.name
 
 
+
+
+
 class Order(models.Model):
     
     #customer name, phone and email.
@@ -32,12 +36,19 @@ class Order(models.Model):
     phone = models.CharField(max_length=14)
     email = models.EmailField()
 
-    products = models.ManyToManyField(Product)
+    #products = models.ManyToManyField(OrderItem)
+    
     #p_name = models.CharField(max_length=200,default="")
     
     def __str__(self):
         return self.customer_name
 
+
+class OrderItem(models.Model):
     
+    qty = models.IntegerField(default=0)
 
-
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+    
+    #p_name = models.CharField(max_length=200,default="")

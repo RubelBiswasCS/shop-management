@@ -21,14 +21,13 @@ class ItemSelectForm(forms.Form):
     p_name = forms.ChoiceField(label='Select Product',choices=list ((obj.product_code,obj.name) for obj in Product.objects.all()))   
     qty = forms.IntegerField()
 
-
     def clean_qty(self):
         data = self.cleaned_data['qty']
-        if data > 4:
-             raise ValidationError(
-                    "Did not send for 'help' in the subject despite "
-                    "CC'ing yourself."
-                )
+        product_code = self.cleaned_data['p_name']
+        product = Product.objects.get(product_code = product_code)
+        if data > product.current_stock:
+            raise forms.ValidationError(('Insufficient Stock'), code='ins_stock')
         # Always return a value to use as the new cleaned data, even if
         # this method didn't change it.
         return data
+    

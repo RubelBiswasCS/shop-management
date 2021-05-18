@@ -22,7 +22,11 @@
                         {{ field.label_tag }}
                        </div >
                        <div class="form-f">
+                        <div class="alert alert-danger">
+                            <strong>{{ field.errors|escape }}</strong>
+                        </div>
                         {{ field }}
+                        
                        </div>
     
                     </div>
@@ -52,7 +56,7 @@
             <tr>
                 <td> {{ product.name }}</td>
                 <td> {{ product.unit_price }}</td>
-                <td> {{ product.current_stock }}</td>
+                <td> {{ order.qty }}</td>
                 <td> {{ product.total }}</td>
                 
             </tr> 
