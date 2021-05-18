@@ -52,17 +52,19 @@
             
         </tr>
         
-        {% for product in p %}
+        {% for item in oda %}
+            <p>item</p>
             <tr>
-                <td> {{ product.name }}</td>
+                <td> {{ item }}</td>
                 <td> {{ product.unit_price }}</td>
                 <td> {{ order.qty }}</td>
                 <td> {{ product.total }}</td>
                 
             </tr> 
         {% endfor %}
+        
     </table>
-  
+    <p>{{oda.order_id}}</p>
 </div>    
 
 {% endblock %}

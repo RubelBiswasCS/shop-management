@@ -222,16 +222,19 @@ def add_to_cart(request,pk):
             product.current_stock -= qty
             product.save()
 
-            c_oi, created = OrderItem.objects.get_or_create( product__product_code = product_code,order__pk=pk)
-            qty += c_oi.qty
+            
+            
             o_i = OrderItem(product=product,order = order, qty=qty)
             o_i.save()
 
+            oda = OrderItem.objects.filter(product__product_code = product_code)
             context = {
                     'order': order,
                     'form_i' : form_i,
-                    '0_i' : o_i,
+                    'o_i' : o_i,
+                    'oda' : oda,
                     }
+
                             
             
             #order.products.add(orderItem)
@@ -240,20 +243,28 @@ def add_to_cart(request,pk):
     else:
         pass
        
-
-    
-
     
         #Order.objects.filter(pk=pk).update(
         #p_name=all_item)
-
+    
         
     #p = order.products.all()
    
     
     # if a GET (or any other method) we'll create a blank form
     
-    
-    
-    
-    return render(request,'store/cart.html',context)     
+    return render(request,'store/cart.html',context)
+
+
+
+def order_detail_view(request,pk):
+    order = Order.objects.get(pk=pk)
+    orderItem = OrderItem.objects.first()
+    o = orderItem.product
+    #template = loader.get_template('polls/index.html')
+    context = {
+        'order': order,
+        'orderItem' : orderItem,
+        'o' : o
+    }
+    return render(request,'store/order_details.html',context)
