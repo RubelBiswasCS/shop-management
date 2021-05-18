@@ -7,13 +7,11 @@
          <p>Customer Name :{{ order.customer_name }}</p>
          <p>Phone : {{ order.phone }}</p>
          <p>Email : {{ order.email }}</p>
-         <p>-------------------</p>
-         <hr>
-        <p>product Code : {{o.product_code}}</p>
-        <p>Product : {{o.name}}</p>
-        <p>Unit Price: {{o.unit_price}}</p>
-        <p>Quantity: {{orderItem.qty}}</p>
        
+        <div style="margin-bottom: 5px;">
+
+        </div>
+        
 
          
     </div>
@@ -21,19 +19,17 @@
         <tr>
             <th>Product Code</th>
             <th>Name</th>
-            <th>Category</th>
+            <th>Qty</th>
             <th>Unit Price</th>
-            <th>Current Stock</th>
-            <th>Action</th>
+           
         </tr>
-        {% for product in products %}
+        {% for product in orderItem %}
             <tr>
-                <td> {{ product.product_code }}</td>
-                <td> {{ product.name }}</td>
-                <td> {{ product.category }}</td>
-                <td> {{ product.unit_price }}</td>
-                <td> {{ product.current_stock }}</td>
-                <td><a href="{% url 'confirm-delete-view' product.pk %}" class="button-1 btn-sm danger">Delete</a></td>
+                <td> {{ product.product.product_code }}</td>
+                <td> {{ product.product.name }}</td>
+                <td> {{ product.qty }}</td>
+                <td> {{ product.product.unit_price }}</td>
+               
             </tr> 
         {% endfor %}
     </table>

@@ -259,12 +259,11 @@ def add_to_cart(request,pk):
 
 def order_detail_view(request,pk):
     order = Order.objects.get(pk=pk)
-    orderItem = OrderItem.objects.first()
-    o = orderItem.product
-    #template = loader.get_template('polls/index.html')
+  
+    orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
+    
     context = {
         'order': order,
-        'orderItem' : orderItem,
-        'o' : o
+        'orderItem' : orderItem
     }
     return render(request,'store/order_details.html',context)
