@@ -32,7 +32,8 @@ class Order(models.Model):
     phone = models.CharField(max_length=14)
     email = models.EmailField()
 
-    p_name = models.CharField(max_length=200,default="")
+    products = models.ManyToManyField(Product)
+    #p_name = models.CharField(max_length=200,default="")
     
     def __str__(self):
         return self.customer_name

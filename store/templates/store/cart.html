@@ -2,12 +2,12 @@
 {% block info %}
 <div class="g-div">
     <div>
-        {% for order in orders %}
+        
         <p>Order ID : {{ order.order_id }}</p>
          <p>Customer Name :{{ order.customer_name }}</p>
          <p>Phone : {{ order.phone }}</p>
          <p>Email : {{ order.email }}</p>
-         {% endfor %}
+         
     </div>
     
         <form method="POST">
@@ -48,16 +48,17 @@
             
         </tr>
         
-        {% for order in orders %}
+        {% for product in p %}
             <tr>
-                <td> {{ order.order_id }}</td>
-                <td> {{ order.customer_name }}</td>
-                <td> {{ order.phone }}</td>
-                <td> {{ order.email }}</td>
+                <td> {{ product.name }}</td>
+                <td> {{ product.unit_price }}</td>
+                <td> {{ product.current_stock }}</td>
+                <td> {{ product.total }}</td>
                 
             </tr> 
         {% endfor %}
     </table>
+  
 </div>    
 
 {% endblock %}

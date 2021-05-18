@@ -194,31 +194,31 @@ def create_order(request):
 
 
 def add_to_cart(request,pk):
-    orders = Order.objects.filter(pk=pk)#get_object_or_404(Order, pk = pk) #
+    order = Order.objects.get(pk=pk)#get_object_or_404(Order, pk = pk) #
     #template = loader.get_template('polls/index.html')
     form_i = ItemSelectForm(request.POST)
-    context = {
-        'orders': orders,
-        'form_i' : form_i
-    }
+    
 
     if form_i.is_valid():
         # process the data in form.cleaned_data as required
         
-        current_item = form_i.cleaned_data['p_name']
+        product_code = form_i.cleaned_data['p_name']
+
+        product = Product.objects.get(product_code = product_code)
         
-        all_item = get_object_or_404(Order, pk = pk).p_name
         
-        all_item = list(all_item)
-        all_itme = all_item.append(str(current_item))
-        all_item = str(all_item)
-       
-        Order.objects.filter(pk=pk).update(
-        p_name=str(all_item)
-    )
+        order.products.add(product)
+        #Order.objects.filter(pk=pk).update(
+        #p_name=all_item)
+    
 
     # if a GET (or any other method) we'll create a blank form
-    
+    p = order.products.all()
+    context = {
+        'order': order,
+        'form_i' : form_i,
+        'p' : p
+    }
 
     
     return render(request,'store/cart.html',context)     
