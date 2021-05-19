@@ -62,9 +62,13 @@
                 
             </tr> 
         {% endfor %}
-        
+        <tr>
+            <td colspan="3"> Total </td>
+            <td> {{total}} </td>
+        </tr> 
     </table>
-    <p>{{oda.order_id}}</p>
+    <a href="{% url 'create-invoice' order.pk %}" class="button-1 ">Get Invoice</a>
+    <a href="{% url 'create-order' %}" class="button-1">Back</a>
 </div>    
 
 {% endblock %}

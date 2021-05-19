@@ -5,6 +5,7 @@ from .forms import OrderForm,ProductForm,ItemSelectForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from .utils import render_to_pdf
+from num2words import num2words
 
 
 
@@ -249,10 +250,12 @@ def add_to_cart(request,pk):
     
     # if a GET (or any other method) we'll create a blank form
     orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
+    total = sum(item.get_total for item in orderItem)
     context = {
             'order': order,
             'form_i' : form_i,
             'orderItem' : orderItem,
+            'total' : total,
             }
     return render(request,'store/cart.html',context)
 
@@ -262,19 +265,24 @@ def order_detail_view(request,pk):
     order = Order.objects.get(pk=pk)
   
     orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
-    
+    total = sum(item.get_total for item in orderItem)
     context = {
         'order': order,
-        'orderItem' : orderItem
+        'orderItem' : orderItem,
+        'total' : total,
     }
     return render(request,'store/order_details.html',context)
 
 def create_invoice(request,pk):
     order = Order.objects.get(pk=pk)
     orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
+    total = sum(item.get_total for item in orderItem)
+    total_in_words = num2words(total)
     data = {    
         'order': order,
-        'orderItem' : orderItem
+        'orderItem' : orderItem,
+        'total' : total,
+        'total_in_words' : total_in_words,
         }
     pdf = render_to_pdf('store/invoice_pdf.html', data)
     if pdf:

@@ -8,8 +8,7 @@
         
         .div-1{
             margin-top: 2%;
-            margin-left: 20%;
-            margin-right: 20%;
+            
             clear: both;
         }
         table {
@@ -79,15 +78,15 @@
                 <td style="height:30px;width:45%; text-align: left; ">  {{ product.product.name }}</td>
                 <td style="height:30px;width:15%;"> {{ product.product.unit_price }}</td>
                 <td style="height:30px;width:15%;">  {{ product.qty }}</td>
-                <td style="height:30px;width:15%;">600</td>
+                <td style="height:30px;width:15%;">{{product.get_total}}</td>
             </tr>
            {% endfor %}
 
             </tbody>
             <tfoot>
             <tr>
-                <td class="t-al-left" colspan="4"> Amount in words: Seven hundred taka only</td>
-                <td style="height:30px;width:15%"> 600</td>
+                <td class="t-al-left" colspan="4"> Amount in words: {{total_in_words}} taka only</td>
+                <td style="height:30px;width:15%"> {{total}}</td>
             </tr>
         </tfoot>
         </table>
