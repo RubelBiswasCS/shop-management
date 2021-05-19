@@ -170,12 +170,9 @@ def create_order(request):
         # check whether it's valid:
         if form_o.is_valid():
             # process the data in form.cleaned_data as required
-            #order_id = form_o.cleaned_data['order_id']
             customer_name = form_o.cleaned_data['customer_name']
             phone = form_o.cleaned_data['phone']
             email = form_o.cleaned_data['email']
-            #p_name = form_o.cleaned_data['p_name']
-            #order_id=order_id, into order
             
             p = Order(
             customer_name=customer_name,phone=phone,email=email)
@@ -188,7 +185,6 @@ def create_order(request):
     # if a GET (or any other method) we'll create a blank form
     else:
         form_o = OrderForm()
-        #return HttpResponseRedirect(reverse('/add_to_cart/', kwargs={'pk':'pk'}))
 
     
     return render(request,'store/create_order.html',{'form_o': form_o,})     
@@ -211,8 +207,8 @@ def add_to_cart(request,pk):
     }
     
     if form_i.is_valid():
-        # process the data in form.cleaned_data as required
-        
+
+        # process the data in form.cleaned_data as required 
         product_code = form_i.cleaned_data['p_name']
         qty = form_i.cleaned_data['qty']
 
@@ -220,25 +216,24 @@ def add_to_cart(request,pk):
         
         if product.current_stock >= qty:
 
-            product.current_stock -= qty
-            product.save()
-
             
-            
-            o_i = OrderItem(product=product,order = order, qty=qty)
-            o_i.save()
 
-            oda = OrderItem.objects.filter(product__product_code = product_code)
-            context = {
-                    'order': order,
-                    'form_i' : form_i,
-                    'o_i' : o_i,
-                    'oda' : oda,
-                    }
+            if not OrderItem.objects.filter(order__order_id=order.order_id,
+                product__product_code=product.product_code).exists():
+                product.current_stock -= qty
+                product.save()
+                o_i = OrderItem(product=product,order = order, qty=qty)
+                o_i.save()
+            else:
+                c_oi=OrderItem.objects.get(order__order_id=order.order_id,
+                product__product_code=product.product_code)
+                rt_qty = c_oi.qty
+                product.current_stock = product.current_stock + (rt_qty-qty)
+                product.save()
+                OrderItem.objects.filter(order__order_id=order.order_id,
+                product__product_code=product.product_code).update(qty=qty)
 
-                            
-            
-            #order.products.add(orderItem)
+
             
         return HttpResponseRedirect('')
     else:
@@ -253,7 +248,12 @@ def add_to_cart(request,pk):
    
     
     # if a GET (or any other method) we'll create a blank form
-    
+    orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
+    context = {
+            'order': order,
+            'form_i' : form_i,
+            'orderItem' : orderItem,
+            }
     return render(request,'store/cart.html',context)
 
 

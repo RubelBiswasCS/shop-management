@@ -52,13 +52,13 @@
             
         </tr>
         
-        {% for item in oda %}
-            <p>item</p>
+        {% for item in orderItem %}
+            
             <tr>
-                <td> {{ item }}</td>
-                <td> {{ product.unit_price }}</td>
-                <td> {{ order.qty }}</td>
-                <td> {{ product.total }}</td>
+                <td> {{ item.product.name }}</td>
+                <td> {{ item.product.unit_price }}</td>
+                <td> {{ item.qty }}</td>
+                <td> {{ 1756 }}</td>
                 
             </tr> 
         {% endfor %}
