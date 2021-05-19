@@ -69,6 +69,12 @@ class OrderItem(models.Model):
 
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
+
+    @property
+    def get_total(self):
+        total = self.product.unit_price * self.qty
+        return total
+
     
     #p_name = models.CharField(max_length=200,default="")
     #qr_info = 'Invoice No : '+ str(self.order_id)+'Name : '+self.customer_name+ +'Phone : '+str(self.phone)+ 'Email :'+ self.email
