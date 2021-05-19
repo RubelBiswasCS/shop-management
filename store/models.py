@@ -2,6 +2,11 @@ from django.db import models
 from django.urls import reverse
 import random
 
+import qrcode
+from io import BytesIO
+from django.core.files import File
+from PIL import Image, ImageDraw
+
 
 def unique_order_id():
     not_unique = True
@@ -36,6 +41,8 @@ class Order(models.Model):
     phone = models.CharField(max_length=14)
     email = models.EmailField()
 
+    qr_code = models.ImageField(upload_to='qr_codes', blank=True)
+
     #products = models.ManyToManyField(OrderItem)
     
     #p_name = models.CharField(max_length=200,default="")
@@ -43,6 +50,18 @@ class Order(models.Model):
     def __str__(self):
         return self.customer_name
 
+    def save(self, *args, **kwargs):
+        qr_info = "Invoice No : "+ str(self.order_id)+" Name : "+self.customer_name +" Phone : "+str(self.phone)+ " Email : "+ self.email
+        qrcode_img = qrcode.make(qr_info)
+        #canvas = Image.new('RGB', (290, 290), 'white')
+        canvas = Image.new('RGB', (qrcode_img.pixel_size, qrcode_img.pixel_size), 'white')
+        canvas.paste(qrcode_img)
+        fname = f'qr_code-{self.customer_name}.png'
+        buffer = BytesIO()
+        canvas.save(buffer,'PNG')
+        self.qr_code.save(fname, File(buffer), save=False)
+        canvas.close()
+        super().save(*args, **kwargs)
 
 class OrderItem(models.Model):
     
@@ -52,3 +71,4 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     
     #p_name = models.CharField(max_length=200,default="")
+    #qr_info = 'Invoice No : '+ str(self.order_id)+'Name : '+self.customer_name+ +'Phone : '+str(self.phone)+ 'Email :'+ self.email

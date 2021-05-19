@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        
         .div-1{
+            margin-top: 2%;
             margin-left: 20%;
             margin-right: 20%;
         }
@@ -47,15 +49,18 @@
 
 </head>
 <body>
+    <img src={{order.qr_code.url}}>
     <div class="div-1">
     <div>  
         <p>Order ID : {{ order.order_id }}</p>
          <p>Customer Name :{{ order.customer_name }}</p>
          <p>Phone : {{ order.phone }}</p>
          <p>Email : {{ order.email }}</p>
+         
        
-        <div style="margin-bottom: 5px;">
-        </div>
+        <div style="margin-bottom: 10px; margin-top: 20px;">
+
+         </div>
          
     </div>
     <div class="div-1">
