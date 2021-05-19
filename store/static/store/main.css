@@ -146,7 +146,7 @@ h1{
   }
 
   .product-table td, .product-table th {
-    border: 1px solid rgb(10, 4, 4);
+    border: 1px solid black;
     padding: 8px;
     text-align: center;
   }
