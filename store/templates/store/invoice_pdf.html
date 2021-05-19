@@ -5,40 +5,91 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        th {
-        border: 1px solid black;
-        padding: 0;
-        text-align: center;
-  }
+        .div-1{
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            padding: 2px;
+            }
+        thead, tfoot,tbody{
+           
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+               
+            }
+
+        th,tfoot td {
+            border-style: solid;
+            border-width: 1px;
+            border-color: black;
+            }
+        tbody tr td{
+            border-left-style: solid;
+            border-left-width: 1px;
+            border-left-color: black;
+            border-right-style: solid;
+            border-right-width: 1px;
+            border-right-color: black;
+        }
+           
+       
+        .t-al-left{
+            padding-left: 5px;
+            text-align: left;
+        }
     </style>
     <title>Invoice</title>
 
 </head>
 <body>
-    <div >
-        <table class="product-table">
+    <div class="div-1">
+    <div>  
+        <p>Order ID : {{ order.order_id }}</p>
+         <p>Customer Name :{{ order.customer_name }}</p>
+         <p>Phone : {{ order.phone }}</p>
+         <p>Email : {{ order.email }}</p>
+       
+        <div style="margin-bottom: 5px;">
+        </div>
+         
+    </div>
+    <div class="div-1">
+        <table >
+            <thead>
             <tr>
-                <th>SL. NO.</th>
-                <th>Item</th>
-                <th>Unit Price</th>
-                <th>QTY</th>
-                <th>Total</th>
-                
+                <th style="height:30px;width:10%">SL. NO.</th>
+                <th style="height:30px;width:45%">Item</th>
+                <th style="height:30px;width:15%">Unit Price</th>
+                <th style="height:30px;width:15%">QTY</th>
+                <th style="height:30px;width:15%">Total</th>
             </tr>
-            
+            </thead>
+            <tbody>
+
+            {% for product in orderItem %}    
+            <tr > 
+                <td style="height:30px;width:5%" > 1</td>
+                <td style="height:30px;width:45%">  {{ product.product.name }}</td>
+                <td style="height:30px;width:15%"> {{ product.product.unit_price }}</td>
+                <td style="height:30px;width:15%">  {{ product.qty }}</td>
+                <td style="height:30px;width:15%">600</td>
+            </tr>
+           {% endfor %}
+
+            </tbody>
+            <tfoot>
             <tr>
-                <td> 1</td>
-                <td> Hand Sanitizer</td>
-                <td>200</td>
-                <td> 3</td>
-                <td>600/td>
+                <td class="t-al-left" colspan="4"> Amount in words: Seven hundred taka only</td>
+                <td style="height:30px;width:15%"> 600</td>
             </tr>
-            <tr>
-                <td> Amount in words: Seven hundred taka only</td>
-                <td> 600</td>
-            </tr>
-           
+        </tfoot>
         </table>
     </div>
+</div>
 </body>
 </html>

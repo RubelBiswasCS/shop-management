@@ -1,9 +1,10 @@
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .models import Product,Order,OrderItem
 from .forms import OrderForm,ProductForm,ItemSelectForm
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+from .utils import render_to_pdf
 
 
 
@@ -267,3 +268,16 @@ def order_detail_view(request,pk):
         'orderItem' : orderItem
     }
     return render(request,'store/order_details.html',context)
+
+def create_invoice(request,pk):
+    order = Order.objects.get(pk=pk)
+    orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
+    data = {    
+        'order': order,
+        'orderItem' : orderItem
+        }
+    pdf = render_to_pdf('store/invoice_pdf.html', data)
+    if pdf:
+        return HttpResponse(pdf, content_type='application/pdf')
+    return HttpResponse("Not Found")    
+   

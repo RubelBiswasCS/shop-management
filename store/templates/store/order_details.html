@@ -11,8 +11,6 @@
         <div style="margin-bottom: 5px;">
 
         </div>
-        
-
          
     </div>
     <table class="product-table">
@@ -33,5 +31,6 @@
             </tr> 
         {% endfor %}
     </table>
+    <a href="{% url 'create-invoice' order.pk %}" class="button-1 ">Get Invoice</a>
 </div>    
 {% endblock %}
