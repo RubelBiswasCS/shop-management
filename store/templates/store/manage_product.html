@@ -1,5 +1,6 @@
-{% extends "store/home.html" %}
 
+{% extends "store/home.html" %}
+<!--left col of the product management, extended in Product Management view template-->
 {% block left_div %}
     <a href="{% url 'add-product' %}" class="button-1">Add Product</a>
     <a href="{% url 'all-products' %}" class="button-1">All Products</a>

@@ -6,7 +6,9 @@
             <!-- Security token by Django -->
             {% csrf_token %}
             <p>Are you sure you want to delete the Product "{{product.name}}"</p>
+            <!-- this button will confirm the delation of selected product -->
             <input type="submit" class="button-1  danger " value="Yes" />
+            <!--button for fall back-->
             <a class="button-1" href="{% url 'delete-product'  %}">Cancel </a>
         </form>
     </div>

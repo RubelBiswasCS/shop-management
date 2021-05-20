@@ -1,3 +1,6 @@
+<!--In this template customer information will be displayed which added previously
+    and will provide dropdown for select product/item and it's quantity, as well as all added item will
+     be displyed on a table after added-->
 {% extends "store/manage_order.html" %}
 {% block info %}
 <div class="g-div">
@@ -67,7 +70,9 @@
             <td> {{total}} </td>
         </tr> 
     </table>
+    <!--When the bellow button clicked invoice will be created based on customer info and selected item -->
     <a href="{% url 'create-invoice' order.pk %}" class="button-1 ">Get Invoice</a>
+    <!--this button will take back to previous page-->
     <a href="{% url 'create-order' %}" class="button-1">Back</a>
 </div>    
 

@@ -1,3 +1,4 @@
+<!--This template for invoice, all style in this template is either internal or inline-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -71,7 +72,7 @@
             </tr>
             </thead>
             <tbody >
-
+            <!--looping over all Ordered item and getting info for each item/product-->
             {% for product in orderItem %}    
             <tr > 
                 <td style="height:30px;width:5%;" > {{ forloop.counter }}</td>
@@ -85,6 +86,7 @@
             </tbody>
             <tfoot>
             <tr>
+                <!--Total of the invoice will be print in word which take 4 col-->
                 <td class="t-al-left" colspan="4"> Amount in words: {{total_in_words}} taka only</td>
                 <td style="height:30px;width:15%"> {{total}}</td>
             </tr>

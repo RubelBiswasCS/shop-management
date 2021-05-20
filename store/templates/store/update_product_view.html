@@ -1,3 +1,4 @@
+<!--Showing product information in a table with Update button-->
 {% extends "store/manage_product.html" %}
 
 {% block info %}
@@ -18,7 +19,8 @@
                     <td> {{ product.category }}</td>
                     <td> {{ product.unit_price }}</td>
                     <td> {{ product.current_stock }}</td>
-                    
+                    <!--button will take to update product form, which is 
+                    prepopulated with product's current details details-->
                     <td><a href="{% url 'update-product-view' product.pk %}" class="button-1 btn-sm ">Update</a></td>
                 </tr> 
             {% endfor %}

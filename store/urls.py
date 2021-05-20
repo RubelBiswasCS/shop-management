@@ -5,8 +5,8 @@ from .views import create_order
 
 urlpatterns = [
    
-    path('home/',views.home,name='store-home'),
-    path('',views.home,name='store-home'),
+    path('home/',views.create_order,name='store-home'),
+    path('',views.create_order,name='store-home'),
     path('manage_product/',views.home,name='manage-product'),
     path('add_product/',views.add_product,name='add-product'),
     path('all_products/',views.home,name='all-products'),

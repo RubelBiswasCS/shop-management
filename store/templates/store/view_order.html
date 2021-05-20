@@ -1,3 +1,5 @@
+<!--Contains all existing order with minimum order details in a table, 
+    and contains a action button for view the order details-->
 {% extends "store/manage_order.html" %}
 
 {% block info %}
@@ -17,6 +19,7 @@
                     <td> {{ order.customer_name }}</td>
                     <td> {{ order.phone }}</td>
                     <td> {{ order.email }}</td>
+                    <!--this button will take to details page of the current prduct-->
                     <td><a href="{% url 'order-detail-view' order.pk %}" class="button-1 btn-sm ">Details</a></td>
                     
                 </tr> 

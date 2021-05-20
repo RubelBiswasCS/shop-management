@@ -1,3 +1,4 @@
+<!--All available products list will be in this template-->
 {% extends "store/manage_product.html" %}
 
 {% block info %}
@@ -10,7 +11,8 @@
                 <th>Unit Price</th>
                 <th>Current Stock</th>
             </tr>
-            {% for product in products %}
+            <!-- looped over products, and get required value for each product-->
+            {% for product in products %} 
                 <tr>
                     <td> {{ product.product_code }}</td>
                     <td> {{ product.name }}</td>

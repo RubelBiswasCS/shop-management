@@ -1,3 +1,4 @@
+<!--home template for manage product , !!! initially this was template for project home view-->
 {% extends "store/base.html" %}
 {% block content %}
     <div class="outer-div">
@@ -18,9 +19,10 @@
                 <button class="button-1"type='submit'>Product Management</button>
             </form>
             <form action="{% url 'manage-order'  %}" method='GET'>
+                <!--button for switching Product Management to Order Managemet-->
                 <button class= "button-1" type='submit'>Order Management</button>
             </form>
-            <a href="#" class="button-1">Link Button</a>
+           
                 
         </div>
     </div>

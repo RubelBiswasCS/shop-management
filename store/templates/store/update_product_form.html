@@ -1,12 +1,12 @@
+<!--Template for update product-->
 {% extends "store/manage_product.html" %}
-
 {% block info %}
     <div class="form-title">
         <h2>Update Product</h2>
     </div>
     <form method="POST">
         {% csrf_token %}
-
+        <!--Form for updating product field-->
         <fieldset>
             {% for field in form %}
             <div class="fieldWrapper">

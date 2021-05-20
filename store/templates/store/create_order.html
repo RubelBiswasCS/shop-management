@@ -1,3 +1,4 @@
+<!--This template contains a form for input cunstomer information-->
 {% extends "store/manage_order.html" %}
 
 {% block info %}
@@ -28,8 +29,9 @@
             </div>
             {% endfor %}
             
-
+            <!---->
              <a href="{% url 'create-order' %}" class="button-1">Cancle</a>
+            <!--this button will take to item selection page-->
             <input class="button-1" type="submit" value="Add Item">
         </fieldset>
     </form>
