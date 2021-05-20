@@ -7,9 +7,9 @@ urlpatterns = [
    
     path('home/',views.create_order,name='store-home'),
     path('',views.create_order,name='store-home'),
-    path('manage_product/',views.home,name='manage-product'),
+    path('manage_product/',views.all_product,name='manage-product'),
     path('add_product/',views.add_product,name='add-product'),
-    path('all_products/',views.home,name='all-products'),
+    path('all_products/',views.all_product,name='all-products'),
     path('update_product/',views.update_product,name='update-product'),
     path('delete_product/',views.delete_product,name='delete-product'),
     path('<int:pk>/delete_product/', views.confirm_delete_view, name='confirm-delete-view'),

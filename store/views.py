@@ -8,14 +8,6 @@ from .utils import render_to_pdf
 from num2words import num2words
 
 
-#all instace of Product model passed to all_product template as context dictonary"
-def home(request):
-    products = Product.objects.all()
-    context = {
-        'products': products,
-    }
-    return render(request,'store/all_products.html',context)
-
 #view of delete proudct
 def delete_product(request):
 
@@ -45,7 +37,7 @@ def confirm_delete_view(request, pk):
   
     return render(request, "confirm_delete_product.html", context)
 
-
+#view for adding product
 def add_product(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -75,6 +67,15 @@ def add_product(request):
 
     return render(request, 'store/add_product.html', {'form': form})
 
+#all instace of Product model passed to all_product template as context dictonary"
+def all_product(request):
+    products = Product.objects.all()
+    #template = loader.get_template('polls/index.html')
+    context = {
+        'products': products,
+    }
+    return render(request,'store/all_products.html',context) 
+    
 #all product list with 'update prodoct' action 
 def update_product(request):
     products = Product.objects.all()
@@ -134,15 +135,7 @@ def manage_product(request):
         'products': products,
     }
     return render(request,'store/manage_product.html',context)
-
-#added product view
-def added_product(request):
-    products = Product.objects.all()
-    #template = loader.get_template('polls/index.html')
-    context = {
-        'products': products,
-    }
-    return render(request,'store/added_product.html',context)   
+  
 
 
 def manage_order(request):
