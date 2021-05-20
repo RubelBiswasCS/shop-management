@@ -8,6 +8,7 @@ from django.core.files import File
 from PIL import Image, ImageDraw
 
 
+#function for creating unique order id
 def unique_order_id():
     not_unique = True
     while not_unique:
@@ -29,12 +30,8 @@ class Product(models.Model):
         return self.name
 
 
-
-
-
 class Order(models.Model):
     
-    #customer name, phone and email.
     order_id = models.IntegerField(unique=True, 
                         default=unique_order_id)
     customer_name =  models.CharField(max_length=100)
@@ -43,13 +40,11 @@ class Order(models.Model):
 
     qr_code = models.ImageField(upload_to='qr_codes', blank=True)
 
-    #products = models.ManyToManyField(OrderItem)
-    
-    #p_name = models.CharField(max_length=200,default="")
     
     def __str__(self):
         return self.customer_name
 
+    #override ths save method for creating qrcode based on fields on this model.
     def save(self, *args, **kwargs):
         qr_info = "Invoice No : "+ str(self.order_id)+" Name : "+self.customer_name +" Phone : "+str(self.phone)+ " Email : "+ self.email
         qrcode_img = qrcode.make(qr_info)
@@ -70,11 +65,10 @@ class OrderItem(models.Model):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
 
+    #this will return total price of product(unit_price*quntity)
     @property
     def get_total(self):
         total = self.product.unit_price * self.qty
         return total
 
     
-    #p_name = models.CharField(max_length=200,default="")
-    #qr_info = 'Invoice No : '+ str(self.order_id)+'Name : '+self.customer_name+ +'Phone : '+str(self.phone)+ 'Email :'+ self.email
