@@ -1,1 +1,6 @@
 Django~=2.2.19
+xhtml2pdf
+pillow
+qrcode
+num2words
+
