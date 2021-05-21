@@ -6,40 +6,40 @@ This is a super shop management system with basic functionalities, like managing
 
 For installing this project, Virtual Environment is recommended. So lets setup the virtual environment,
 Open your Terminal and run this command:
-    ```
+```
 mkdir Django_Project
 cd Django_Project
 sudo apt-get install python3-venv
 python3 -m venv myvenv
 source myvenv/bin/activate
-    ```
+```
 Now virtual environment is activated, its time for cloneing the project. for this run this command bellow,
-    ```
+```
 git clone https://github.com/RubelBiswasCS/shop-management
-    ```
+```
 
 Now cd into the project directory
-    ```
+```
 cd shop-management 
-    ```
+```
 Install dependencies,
-    ```
+```
 pip install --upgrade pip
 pip install -r requirements.txt
-    ```
+```
 at this point the requirment up-to-date.lets do the migrations by runnning those command
-    ```
+```
 python manage.py makemigrations
 python manage.py migrate
-    ```
+```
 As migration done, lets create a superuser for this application. For doing so run the commend down bellow and give proper credentials as required.
- ```
+```
 python manage.py createsuperuser
 ```    
 Now you can run this application by running
-    ```
+```
 python manage.py runserver
-    ```
+```
 Now the site is running on localhost at port 8000, port no may be varied on user. in my case its 8000. In you browser the site is live on http://127.0.0.1:8000/.
 
 # How to Use
