@@ -183,7 +183,7 @@ def add_to_cart(request,pk):
     order = Order.objects.get(pk=pk)#get_object_or_404(Order, pk = pk) #
 
     initial_dict = {
-        'product_code' : "Select Item", 
+        'product' : "Select Item", 
         'qty' : 1
     }
     
@@ -198,10 +198,10 @@ def add_to_cart(request,pk):
     if form_i.is_valid():
 
         # process the data in form.cleaned_data as required 
-        product_code = form_i.cleaned_data['p_name']
+        #product_code = form_i.cleaned_data['p_name']
         qty = form_i.cleaned_data['qty']
 
-        product = Product.objects.get(product_code = product_code)
+        product = form_i.cleaned_data['product']
         
         if product.current_stock >= qty:
 

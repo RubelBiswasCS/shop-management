@@ -20,14 +20,15 @@ class OrderForm(forms.Form):
     
 #form for adding item form dropdown menu and quantity from int field
 class ItemSelectForm(forms.Form):
-    p_name = forms.ChoiceField(label='Select Product',choices=list ((obj.product_code,obj.name) for obj in Product.objects.all()))   
+    #p_name = forms.ChoiceField(label='Select Product',choices=list ((obj.product_code,obj.name) for obj in Product.objects.all()))   
+    product = forms.ModelChoiceField(Product.objects.all(), label='Select Product')
     qty = forms.IntegerField()
 
     #function for checking product avaiability
     def clean_qty(self):
         data = self.cleaned_data['qty']
-        product_code = self.cleaned_data['p_name']
-        product = Product.objects.get(product_code = product_code)
+        #product_code = self.cleaned_data['p_name']
+        product = self.cleaned_data['product']
         if data > product.current_stock:
             raise forms.ValidationError(('Insufficient Stock'), code='ins_stock')
         # Always return a value to use as the new cleaned data, even if
