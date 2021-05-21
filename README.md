@@ -33,9 +33,9 @@ python manage.py makemigrations
 python manage.py migrate
     ```
 As migration done, lets create a superuser for this application. For doing so run the commend down bellow and give proper credentials as required.
-    ```
+ ```
 python manage.py createsuperuser
-    ```    
+```    
 Now you can run this application by running
     ```
 python manage.py runserver
