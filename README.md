@@ -7,7 +7,6 @@ This is a super shop management system with basic functionalities, like managing
 For installing this project, Virtual Environment is recommended. So lets setup the virtual environment,
 Open your Terminal and run this command:
 ```
-    sudo apt-get python3
     mkdir Django_Project
     cd Django_Project
     sudo apt-get install python3-venv
