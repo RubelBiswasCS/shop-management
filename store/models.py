@@ -39,6 +39,7 @@ class Order(models.Model):
     email = models.EmailField()
 
     qr_code = models.ImageField(upload_to='qr_codes', blank=True)
+    date_n_time = models.DateTimeField(null=True)
 
     
     def __str__(self):
@@ -46,7 +47,7 @@ class Order(models.Model):
 
     #override ths save method for creating qrcode based on fields on this model.
     def save(self, *args, **kwargs):
-        qr_info = "Invoice No : "+ str(self.order_id)+" Name : "+self.customer_name +" Phone : "+str(self.phone)+ " Email : "+ self.email
+        qr_info = "Date : "+str(self.date_n_time)[0:10]+" Invoice No : "+ str(self.order_id)+" Name : "+self.customer_name +" Phone : "+str(self.phone)+ " Email : "+ self.email
         qrcode_img = qrcode.make(qr_info)
         #canvas = Image.new('RGB', (290, 290), 'white')
         canvas = Image.new('RGB', (qrcode_img.pixel_size, qrcode_img.pixel_size), 'white')

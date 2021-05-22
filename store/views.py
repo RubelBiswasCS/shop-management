@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from .utils import render_to_pdf
 from num2words import num2words
+import datetime
+
 
 
 #view of delete proudct
@@ -201,6 +203,8 @@ def add_to_cart(request,pk):
         order.delete()
         return HttpResponseRedirect(reverse('create-order'))
     elif 'checkout' in request.POST:
+        order.date_n_time = datetime.datetime.now()
+        order.save()
         items = OrderItem.objects.filter(order__order_id=order.order_id)
         for item in items:
             #assigning the updated current_stock value to each ordered product
