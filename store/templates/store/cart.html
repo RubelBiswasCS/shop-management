@@ -71,9 +71,20 @@
         </tr> 
     </table>
     <!--When the bellow button clicked invoice will be created based on customer info and selected item -->
-    <a href="{% url 'create-invoice' order.pk %}" class="button-1 ">Get Invoice</a>
-    <!--this button will take back to previous page-->
-    <a href="{% url 'create-order' %}" class="button-1">Back</a>
+   <!-- <a href="{% url 'create-invoice' order.pk %}" class="button-1 ">Get Invoice</a>-->
+    <!--this button will cancle the current order and take back to previous page-->
+    
+    <form action="" method='POST'>
+        {% csrf_token %}
+        <button class="button-1" type='submit' name="cancle" value="cancle" >Cancle</button>
+        <button class="button-1" type='submit' name="checkout" value="checkout" >Checkout</button>
+    </form>
+    <!--
+    <form action="{% url 'manage-order'  %}" method='GET'>
+        button for switching Product Management to Order Managemet
+        <button class= "button-1" type='submit'>Order Management</button>
+    </form>-->
+   
 </div>    
 
 {% endblock %}

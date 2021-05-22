@@ -65,7 +65,7 @@ def add_product(request):
     else:
         form = ProductForm()
 
-    return render(request, 'store/add_product.html', {'form': form})
+    return render(request,'store/add_product.html', {'form': form})
 
 #all instace of Product model passed to all_product template as context dictonary"
 def all_product(request):
@@ -156,6 +156,7 @@ def create_order(request):
         # create a form instance 
         form_o = OrderForm(request.POST)
         
+
         # check whether it's valid:
         if form_o.is_valid():
             # process the data in form.cleaned_data as required
@@ -194,39 +195,51 @@ def add_to_cart(request,pk):
     'form_i' : form_i,
     
     }
-    
-    if form_i.is_valid():
 
-        # process the data in form.cleaned_data as required 
-        #product_code = form_i.cleaned_data['p_name']
-        qty = form_i.cleaned_data['qty']
+    if 'cancle' in request.POST:
+        order.delete()
+        return HttpResponseRedirect(reverse('create-order'))
+    elif 'checkout' in request.POST:
+        items = OrderItem.objects.filter(order__order_id=order.order_id)
+        for item in items:
+            #assigming the updated current_stock value to each ordered product
+            item.product.current_stock -= item.qty
+            item.product.save()
 
-        product = form_i.cleaned_data['product']
-        
-        if product.current_stock >= qty:
-
-            
-
-            if not OrderItem.objects.filter(order__order_id=order.order_id,
-                product__product_code=product.product_code).exists():
-                product.current_stock -= qty
-                product.save()
-                o_i = OrderItem(product=product,order = order, qty=qty)
-                o_i.save()
-            else:
-                c_oi=OrderItem.objects.get(order__order_id=order.order_id,
-                product__product_code=product.product_code)
-                rt_qty = c_oi.qty
-                product.current_stock = product.current_stock + (rt_qty-qty)
-                product.save()
-                OrderItem.objects.filter(order__order_id=order.order_id,
-                product__product_code=product.product_code).update(qty=qty)
-
-
-            
-        return HttpResponseRedirect('')
+        return HttpResponseRedirect(reverse('create-invoice', kwargs={'pk': order.pk}))
     else:
-        pass
+
+        if form_i.is_valid():
+
+            # process the data in form.cleaned_data as required 
+            
+            qty = form_i.cleaned_data['qty']
+
+            product = form_i.cleaned_data['product']
+            
+            if product.current_stock >= qty:
+
+                
+
+                if not OrderItem.objects.filter(order__order_id=order.order_id,
+                    product__product_code=product.product_code).exists():
+                    #product.current_stock -= qty
+                    #product.save()
+                    o_i = OrderItem(product=product,order = order, qty=qty)
+                    o_i.save()
+                else:
+                    c_oi=OrderItem.objects.get(order__order_id=order.order_id,
+                    product__product_code=product.product_code)
+                    #t_qty = c_oi.qty
+                    #product.current_stock = product.current_stock + (rt_qty-qty)
+                    #product.save()
+                    OrderItem.objects.filter(order__order_id=order.order_id,
+                    product__product_code=product.product_code).update(qty=qty)
+
+
+            return HttpResponseRedirect(reverse('add-to-cart',kwargs={'pk':pk}))
+        else:
+            pass
        
     
     orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
