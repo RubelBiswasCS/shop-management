@@ -197,12 +197,13 @@ def add_to_cart(request,pk):
     }
 
     if 'cancle' in request.POST:
+        OrderItem.objects.filter(order__order_id=order.order_id).delete()
         order.delete()
         return HttpResponseRedirect(reverse('create-order'))
     elif 'checkout' in request.POST:
         items = OrderItem.objects.filter(order__order_id=order.order_id)
         for item in items:
-            #assigming the updated current_stock value to each ordered product
+            #assigning the updated current_stock value to each ordered product
             item.product.current_stock -= item.qty
             item.product.save()
 
@@ -214,7 +215,6 @@ def add_to_cart(request,pk):
             # process the data in form.cleaned_data as required 
             
             qty = form_i.cleaned_data['qty']
-
             product = form_i.cleaned_data['product']
             
             if product.current_stock >= qty:
@@ -223,16 +223,13 @@ def add_to_cart(request,pk):
 
                 if not OrderItem.objects.filter(order__order_id=order.order_id,
                     product__product_code=product.product_code).exists():
-                    #product.current_stock -= qty
-                    #product.save()
+                    
                     o_i = OrderItem(product=product,order = order, qty=qty)
                     o_i.save()
                 else:
                     c_oi=OrderItem.objects.get(order__order_id=order.order_id,
                     product__product_code=product.product_code)
-                    #t_qty = c_oi.qty
-                    #product.current_stock = product.current_stock + (rt_qty-qty)
-                    #product.save()
+                    
                     OrderItem.objects.filter(order__order_id=order.order_id,
                     product__product_code=product.product_code).update(qty=qty)
 
