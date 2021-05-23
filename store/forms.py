@@ -21,7 +21,7 @@ class OrderForm(forms.Form):
 #form for adding item form dropdown menu and quantity from int field
 class ItemSelectForm(forms.Form):
     #p_name = forms.ChoiceField(label='Select Product',choices=list ((obj.product_code,obj.name) for obj in Product.objects.all()))   
-    product = forms.ModelChoiceField(Product.objects.all(), label='Select Product')
+    product = forms.ModelChoiceField(Product.objects.all(), label='Select Product', empty_label="Select")
     qty = forms.IntegerField()
 
     #function for checking product avaiability
