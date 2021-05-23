@@ -11,6 +11,7 @@ import datetime
 
 
 #view of delete proudct
+@login_required
 def delete_product(request):
 
     products = Product.objects.all()
@@ -21,6 +22,7 @@ def delete_product(request):
     return render(request,'store/delete_product_view.html',context)
 
 #vidw for confirming deletion of product    
+@login_required
 def confirm_delete_view(request, pk):
 
     # field names as keys
@@ -40,6 +42,7 @@ def confirm_delete_view(request, pk):
     return render(request, "confirm_delete_product.html", context)
 
 #view for adding product
+@login_required
 def add_product(request):
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
@@ -70,6 +73,7 @@ def add_product(request):
     return render(request,'store/add_product.html', {'form': form})
 
 #all instace of Product model passed to all_product template as context dictonary"
+@login_required
 def all_product(request):
     products = Product.objects.all()
     #template = loader.get_template('polls/index.html')
@@ -79,6 +83,7 @@ def all_product(request):
     return render(request,'store/all_products.html',context) 
     
 #all product list with 'update prodoct' action 
+@login_required
 def update_product(request):
     products = Product.objects.all()
    
@@ -88,6 +93,7 @@ def update_product(request):
     return render(request,'store/update_product_view.html',context)   
 
 #update selected product 
+@login_required
 def update_product_view(request, pk):
     
     # if this is a POST request we need to process the form data
@@ -130,6 +136,7 @@ def update_product_view(request, pk):
     return render(request, 'store/update_product_form.html', {'form': form})
 
 #manage product view
+@login_required
 def manage_product(request):
     products = Product.objects.all()
     
@@ -139,7 +146,7 @@ def manage_product(request):
     return render(request,'store/manage_product.html',context)
   
 
-
+@login_required
 def manage_order(request):
     orders = Order.objects.all()
     #template = loader.get_template('polls/index.html')
@@ -149,7 +156,8 @@ def manage_order(request):
     return render(request,'store/view_order.html',context) 
 
 
-#view for creating order 
+#view for creating order
+@login_required
 def create_order(request):
     
 
@@ -181,7 +189,7 @@ def create_order(request):
     
     return render(request,'store/create_order.html',{'form_o': form_o,})     
 
-
+@login_required
 def add_to_cart(request,pk):
     order = Order.objects.get(pk=pk)#get_object_or_404(Order, pk = pk) #
 
@@ -255,6 +263,7 @@ def add_to_cart(request,pk):
 
 
 #detail view for order
+@login_required
 def order_detail_view(request,pk):
     order = Order.objects.get(pk=pk)
   
@@ -268,6 +277,7 @@ def order_detail_view(request,pk):
     return render(request,'store/order_details.html',context)
 
 #view for creating invoice
+@login_required
 def create_invoice(request,pk):
     order = Order.objects.get(pk=pk)
     orderItem = OrderItem.objects.filter(order__order_id=order.order_id)

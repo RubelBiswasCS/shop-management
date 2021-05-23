@@ -1,0 +1,35 @@
+{% extends "store/base.html" %}
+{% block content %}
+    <div class="form-title">
+        <h2>User Registration</h2>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+
+        <fieldset>
+            {% for field in u_r_form %}
+            <div class="fieldWrapper">
+                {{ field.errors }}
+                <div class="form-lnf">
+                   <div class="form-l">
+                    {{ field.label_tag }}
+                   </div >
+                   <div class="form-f">
+                    {{ field }}
+                   </div>
+
+                </div>
+                
+                {% if field.help_text %}
+                <p class="help">{{ field.help_text|safe }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+
+            <!--
+            <a href="{% url 'add-product' %}" class="button-1">Cancel</a>
+                -->
+            <input class="button-1" type="submit" value="Submit">
+        </fieldset>
+    </form>
+{% endblock%}

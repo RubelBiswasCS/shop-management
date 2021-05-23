@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'users.apps.UsersConfig',
     'store.apps.StoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,6 +52,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'super_shop.urls'
+
 
 TEMPLATES = [
     {
@@ -119,4 +121,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+LOGIN_URL = 'login'
 STATIC_URL = '/static/'
