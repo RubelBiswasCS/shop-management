@@ -23,8 +23,16 @@
                 {% if field.help_text %}
                 <p class="help">{{ field.help_text|safe }}</p>
                 {% endif %}
+
+                
             </div>
             {% endfor %}
+            <div style="clear:left; text-align: center;"> 
+                {% for message in messages %}
+                   <p>{{message}}</p> 
+                {% endfor %}
+            </div>
+            
 
             <!--
             <a href="{% url 'add-product' %}" class="button-1">Cancel</a>

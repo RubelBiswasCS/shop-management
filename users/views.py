@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login
 from django.urls import reverse
 from django.contrib.auth import logout
-
+from django.contrib import messages
 
 # Create your views here.
 def register(request):
@@ -64,7 +64,8 @@ def login(request):
                 auth_login(request, user)
                 return HttpResponseRedirect(reverse('store-home'))
             else:
-                return redirect(request.POST['login'])
+                messages.error(request,'Incorrect Passwords or Username')
+                return redirect('login')
 
     # if a GET (or any other method) we'll create a blank form
     else:
