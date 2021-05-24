@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate, login as auth_login
 from django.urls import reverse
+from django.contrib.auth import logout
 
 
 # Create your views here.
@@ -69,3 +70,11 @@ def login(request):
     else:
         form = UserLoginForm()
     return render(request,'users/login.html', {'u_l_form': form})
+
+
+    
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))
+    
