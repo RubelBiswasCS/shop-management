@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect,HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 from .forms import UserRegisterForm,UserLoginForm
 
@@ -64,7 +64,7 @@ def login(request):
                 auth_login(request, user)
                 return HttpResponseRedirect(reverse('store-home'))
             else:
-                return HttpResponseRedirect(reverse(request.POST['login']))
+                return redirect(request.POST['login'])
 
     # if a GET (or any other method) we'll create a blank form
     else:

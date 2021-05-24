@@ -10,7 +10,7 @@
   .header{
     position:relative;
     background-color: turquoise;
-    height: 2%;
+    height: 50px;
     width: 100%;
     padding-top: 0;
     padding-bottom: 0;
@@ -18,15 +18,11 @@
     text-align: left;
     clear: left;
 }
-.header p{
-    height: 90%;
-    font-size: 175%;
-    padding: 10px;
-}
+
 .footer{
     position:relative;
     background-color: turquoise;
-    height: 2%;
+    height: 50px;
     width: 100%;
     padding-top: 0;
     padding-bottom: 0;
@@ -35,8 +31,8 @@
 }
 .footer p{
     height: 90%;
-    font-size: 175%;
-    padding: 10px;
+    font-size: 100%;
+    padding: 15px;
 }
 h1{
     font-size: 175%;
@@ -187,23 +183,60 @@ h1{
   .form-f select{
       width:90%;
 }
-.h-center{
-    position: relative;
-    height: 80%;
-    width: 80%;
-    text-align: center;
-    left:10%;
-}
+
 .h-left{
     position: relative;
     height: 80%;
-    width: 10%;
+    width: 15%;
+    text-align: center;
+    float: left;
 }
+.h-center{
+    position: relative;
+    height: 80%;
+    width: 70%;
+    text-align: center;
+    float: left;
+    
+    
+}
+
 .h-right{
     position: relative;
-    text-align: center;
     height: 80%;
-    width: 10%;
-    left: 90%;
-    bottom:40 ;
+    width: 15%;
+    margin-top: 15px;
+  
+    text-align: center;
+    float: left;
+   
+   
+}
+.h-right p{
+    position: relative;
+    text-align: center;
+    height: 30%;
+    width: 40%;
+    float: left;
+    margin:1px;
+    
+}
+
+.h-right a{
+    position: relative;
+    text-align: center;
+    height: 50%;
+    width: 40%;
+    float: left;
+    padding:1px;
+}
+
+.h-center p{
+    position: relative;
+    text-align: center;
+  
+    height: 100%;
+    width: 100%;
+    margin-top: 15px;
+    float: left;
 }
