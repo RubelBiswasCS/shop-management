@@ -62,9 +62,15 @@ def login(request):
 
             if user is not None:
                 auth_login(request, user)
-                return HttpResponseRedirect(reverse('store-home'))
+                nxt = request.GET.get("next", None)
+                if nxt is None:
+                    return HttpResponseRedirect(reverse('store-home'))
+                    #return redirect(settings.LOGIN_REDIRECT_URL)
+                else:
+                    return redirect(nxt)
+                    
             else:
-                messages.error(request,'Incorrect Passwords or Username')
+                messages.error(request,'Incorrect Password or Username')
                 return redirect('login')
 
     # if a GET (or any other method) we'll create a blank form
