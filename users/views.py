@@ -60,9 +60,10 @@ def login(request):
             password = request.POST['password']
             user = authenticate(request, username=username, password=password)
 
+            nxt = request.GET.get("next", None)
             if user is not None:
                 auth_login(request, user)
-                nxt = request.GET.get("next", None)
+                
                 if nxt is None:
                     return HttpResponseRedirect(reverse('store-home'))
                     #return redirect(settings.LOGIN_REDIRECT_URL)
@@ -71,7 +72,10 @@ def login(request):
                     
             else:
                 messages.error(request,'Incorrect Password or Username')
-                return redirect('login')
+                if nxt is None:
+                    return HttpResponseRedirect(reverse('store-home'))
+                else:
+                    return redirect(nxt)
 
     # if a GET (or any other method) we'll create a blank form
     else:

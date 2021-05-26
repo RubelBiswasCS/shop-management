@@ -1,5 +1,5 @@
 from django.http import HttpResponseRedirect,HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404
 from .models import Product,Order,OrderItem
 from .forms import OrderForm,ProductForm,ItemSelectForm
 from django.contrib.auth.decorators import login_required
@@ -64,7 +64,8 @@ def add_product(request):
             p.save()
             # ...
             # redirect to a new URL:
-            return HttpResponseRedirect('')
+            return redirect('add-product')
+            #return HttpResponseRedirect('')
 
     # if a GET (or any other method) we'll create a blank form
     else:
