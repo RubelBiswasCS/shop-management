@@ -13,7 +13,7 @@
          
     </div>
     
-        <form method="POST">
+        <form method="POST" id="postForm">
             {% csrf_token %}
     
             <fieldset>
@@ -54,8 +54,11 @@
             <th>Total</th>
             
         </tr>
+        <tbody id="tbd">
+              
+        </tbody>
         
-        {% for item in orderItem %}
+        <!-- {% for item in orderItem %}
             
             <tr>
                 <td> {{ item.product.name }}</td>
@@ -65,7 +68,7 @@
                 
             </tr> 
         {% endfor %}
-        <tr>
+        <tr> -->
             <td colspan="3"> Total </td>
             <td> {{total}} </td>
         </tr> 
@@ -87,4 +90,59 @@
    
 </div>    
 
+<script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type:'POST',
+                url: "{% url 'current-cart' %}",
+                data : {
+                    order_id : 2109779689,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                },
+                success : function(response){
+                    //console.log(response);
+                    $("#tbd").empty();
+                    for (var key in response.c_o_i){
+                        // for (var k in response.c_o_i[key].product){
+                        //     var t =" <tr>"
+                        //      +"<td>"+response.c_o_i[key].product[k].name+ "</td>"
+                        //               +"<td>"+response.c_o_i[key][k].unit_price + "</td>";
+                        //               $("#tbd").append(t);
+                        // }
+                        var temp = " <tr>"
+                             +"<td>"+response.c_o_i[key].product__name+ "</td>"
+                                      +"<td>"+response.c_o_i[key].product__unit_price + "</td>"
+                                     +"<td>"+response.c_o_i[key].qty +"</td>"
+                                    +"<td>"+response.c_o_i[key].product__unit_price * response.c_o_i[key].qty+"</td>"
+                                  +"</tr>";
+
+                        $("#tbd").append(temp);
+                    }
+                },
+                error : function(response){
+                    alert("An error occured");
+                },
+            });
+        },1000);
+    });
+
+//     $(document).on('submit','#postForm',function(e){
+//           e.preventDefault();
+//             $.ajax({
+//                 type:'POST',
+//                 url: "{% url 'current-cart' %}",
+//                 data : {
+//                     name : $('#id_name').val(),
+//                     price : $('#id_price').val(),
+//                     csrfmiddlewaretoken: '{{ csrf_token }}',
+//                 },
+//                 success : function(data){
+//                     //console.log(response);
+//                   //alert(data)
+//                 },
+//     });
+
+//   });
+</script>
 {% endblock %}

@@ -19,6 +19,9 @@ urlpatterns = [
     path('create_order/',views.create_order,name='create-order'),
     path('view_order/',views.manage_order,name='view-order'),
     path('<int:pk>/add_to_cart/', views.add_to_cart, name='add-to-cart'),
+
+    path('current_cart/', views.current_cart, name='current-cart'),    
+
     path('<int:pk>/order_details/', views.order_detail_view, name='order-detail-view'),
     path('<int:pk>/invoice/', views.create_invoice, name='create-invoice'),
 

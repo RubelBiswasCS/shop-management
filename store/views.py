@@ -1,4 +1,4 @@
-from django.http import HttpResponseRedirect,HttpResponse
+from django.http import HttpResponseRedirect,HttpResponse,JsonResponse
 from django.shortcuts import render,redirect, get_object_or_404
 from .models import Product,Order,OrderItem
 from .forms import OrderForm,ProductForm,ItemSelectForm
@@ -7,7 +7,8 @@ from django.urls import reverse
 from .utils import render_to_pdf
 from num2words import num2words
 import datetime
-
+from django.core import serializers
+from django.core import serializers
 
 
 #view of delete proudct
@@ -221,12 +222,12 @@ def add_to_cart(request,pk):
             item.product.save()
 
         return HttpResponseRedirect(reverse('create-invoice', kwargs={'pk': order.pk}))
+    
     else:
-
         if form_i.is_valid():
 
-            # process the data in form.cleaned_data as required 
-            
+        # process the data in form.cleaned_data as required 
+        
             qty = form_i.cleaned_data['qty']
             product = form_i.cleaned_data['product']
             
@@ -246,21 +247,31 @@ def add_to_cart(request,pk):
                     OrderItem.objects.filter(order__order_id=order.order_id,
                     product__product_code=product.product_code).update(qty=qty)
 
+            #current_ordered_items = OrderItem.objects.filter(order__order_id=order.order_id)
+            #return HttpResponseRedirect(reverse('add-to-cart',kwargs={'pk':pk}))
+            
+            #return JsonResponse({"c_o_i":list(current_ordered_items.values())})   
+        
+        orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
+        total = sum(item.get_total for item in orderItem)
+        context = {
+                'order': order,
+                'form_i' : form_i,
+                'orderItem' : orderItem,
+                'total' : total,
+                }
+        return render(request,'store/cart.html',context)
 
-            return HttpResponseRedirect(reverse('add-to-cart',kwargs={'pk':pk}))
-        else:
-            pass
-       
+def current_cart(request):
+    order_id = request.POST.get('order_id')
+    current_ordered_items = OrderItem.objects.filter(order__order_id=9016162294).values('product__name','product__unit_price','qty')
+    #data = serializers.serialize("json", current_ordered_items)
+    #data = serializers.serialize('json', OrderItem.objects.filter(order__order_id=2109779689), fields=('qty','product'))
+    #total = sum(item.get_total for item in current_ordered_items)
+    #return HttpResponseRedirect(reverse('add-to-cart',kwargs={'pk':pk}))
     
-    orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
-    total = sum(item.get_total for item in orderItem)
-    context = {
-            'order': order,
-            'form_i' : form_i,
-            'orderItem' : orderItem,
-            'total' : total,
-            }
-    return render(request,'store/cart.html',context)
+    return JsonResponse({"c_o_i":list(current_ordered_items),})
+    #return JsonResponse({"c_o_i":list(data)})
 
 
 #detail view for order
