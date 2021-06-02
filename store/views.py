@@ -264,7 +264,7 @@ def add_to_cart(request,pk):
 
 def current_cart(request):
     order_id = request.POST.get('order_id')
-    current_ordered_items = OrderItem.objects.filter(order__order_id=9016162294).values('product__name','product__unit_price','qty')
+    current_ordered_items = OrderItem.objects.filter(order__order_id=order_id).values('product__name','product__unit_price','qty')
     #data = serializers.serialize("json", current_ordered_items)
     #data = serializers.serialize('json', OrderItem.objects.filter(order__order_id=2109779689), fields=('qty','product'))
     #total = sum(item.get_total for item in current_ordered_items)

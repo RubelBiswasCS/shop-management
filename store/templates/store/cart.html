@@ -97,7 +97,7 @@
                 type:'POST',
                 url: "{% url 'current-cart' %}",
                 data : {
-                    order_id : 2109779689,
+                    order_id : '{{ order.order_id }}',
                     csrfmiddlewaretoken: '{{ csrf_token }}',
                 },
                 success : function(response){
