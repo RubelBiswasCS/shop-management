@@ -67,11 +67,8 @@
                 <td> {{ item.get_total }}</td>
                 
             </tr> 
-        {% endfor %}
-        <tr> -->
-            <td colspan="3"> Total </td>
-            <td> {{total}} </td>
-        </tr> 
+        {% endfor %}-->
+        
     </table>
     <!--When the bellow button clicked invoice will be created based on customer info and selected item -->
    <!-- <a href="{% url 'create-invoice' order.pk %}" class="button-1 ">Get Invoice</a>-->
@@ -103,6 +100,7 @@
                 success : function(response){
                     //console.log(response);
                     $("#tbd").empty();
+                    var total = 0;
                     for (var key in response.c_o_i){
                         // for (var k in response.c_o_i[key].product){
                         //     var t =" <tr>"
@@ -116,9 +114,11 @@
                                      +"<td>"+response.c_o_i[key].qty +"</td>"
                                     +"<td>"+response.c_o_i[key].product__unit_price * response.c_o_i[key].qty+"</td>"
                                   +"</tr>";
-
+                        total = total+(response.c_o_i[key].product__unit_price * response.c_o_i[key].qty)
                         $("#tbd").append(temp);
                     }
+                    var f_row = '<tr> <td colspan="3"> Total </td><td>'+total+' </td></tr>'
+                    $("#tbd").append(f_row);
                 },
                 error : function(response){
                     alert("An error occured");
