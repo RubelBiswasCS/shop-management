@@ -222,56 +222,80 @@ def add_to_cart(request,pk):
             item.product.save()
 
         return HttpResponseRedirect(reverse('create-invoice', kwargs={'pk': order.pk}))
-    
     else:
-        if form_i.is_valid():
+        pass
+    
+    # else:
+    #     if form_i.is_valid():
 
-        # process the data in form.cleaned_data as required 
+    #     # process the data in form.cleaned_data as required 
         
-            qty = form_i.cleaned_data['qty']
-            product = form_i.cleaned_data['product']
+    #         qty = form_i.cleaned_data['qty']
+    #         product = form_i.cleaned_data['product']
             
-            if product.current_stock >= qty:
+    #         if product.current_stock >= qty:
 
                 
 
-                if not OrderItem.objects.filter(order__order_id=order.order_id,
-                    product__product_code=product.product_code).exists():
+    #             if not OrderItem.objects.filter(order__order_id=order.order_id,
+    #                 product__product_code=product.product_code).exists():
                     
-                    o_i = OrderItem(product=product,order = order, qty=qty)
-                    o_i.save()
-                else:
-                    c_oi=OrderItem.objects.get(order__order_id=order.order_id,
-                    product__product_code=product.product_code)
+    #                 o_i = OrderItem(product=product,order = order, qty=qty)
+    #                 o_i.save()
+    #             else:
+    #                 c_oi=OrderItem.objects.get(order__order_id=order.order_id,
+    #                 product__product_code=product.product_code)
                     
-                    OrderItem.objects.filter(order__order_id=order.order_id,
-                    product__product_code=product.product_code).update(qty=qty)
+    #                 OrderItem.objects.filter(order__order_id=order.order_id,
+    #                 product__product_code=product.product_code).update(qty=qty)
 
             #current_ordered_items = OrderItem.objects.filter(order__order_id=order.order_id)
             #return HttpResponseRedirect(reverse('add-to-cart',kwargs={'pk':pk}))
             
             #return JsonResponse({"c_o_i":list(current_ordered_items.values())})   
         
-        orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
-        total = sum(item.get_total for item in orderItem)
+        # orderItem = OrderItem.objects.filter(order__order_id=order.order_id)
+        # total = sum(item.get_total for item in orderItem)
         context = {
                 'order': order,
                 'form_i' : form_i,
-                'orderItem' : orderItem,
-                'total' : total,
+                # 'orderItem' : orderItem,
+                # 'total' : total,
                 }
         return render(request,'store/cart.html',context)
+def cart_form(request):
+    if request.method == "POST":
 
+        
+        qty = request.POST.get('qty')
+        pk = request.POST.get('product')
+        product = Product.objects.get(pk=pk)
+        
+        order_id = request.POST.get('order_id')
+        order = Order.objects.get(order_id=order_id)
+        if product.current_stock >= int(qty):
+
+
+            if not OrderItem.objects.filter(order__order_id=order_id,
+                product__product_code=product.product_code).exists():
+                
+                o_i = OrderItem(product=product,order = order, qty=qty)
+                o_i.save()
+            else:
+                c_oi=OrderItem.objects.get(order__order_id=order.order_id,
+                product__product_code=product.product_code)
+                
+                OrderItem.objects.filter(order__order_id=order.order_id,
+                product__product_code=product.product_code).update(qty=qty)
+       
+    return HttpResponse({product})
 def current_cart(request):
     order_id = request.POST.get('order_id')
     current_ordered_items = OrderItem.objects.filter(order__order_id=order_id).values('product__name','product__unit_price','qty')
-    #data = serializers.serialize("json", current_ordered_items)
-    #data = serializers.serialize('json', OrderItem.objects.filter(order__order_id=2109779689), fields=('qty','product'))
-    #total = sum(item.get_total for item in current_ordered_items)
-    #return HttpResponseRedirect(reverse('add-to-cart',kwargs={'pk':pk}))
+    
     
     return JsonResponse({"c_o_i":list(current_ordered_items),})
-    #return JsonResponse({"c_o_i":list(data)})
+    
 
 
 #detail view for order

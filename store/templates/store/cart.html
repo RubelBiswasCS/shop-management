@@ -127,22 +127,26 @@
         },1000);
     });
 
-//     $(document).on('submit','#postForm',function(e){
-//           e.preventDefault();
-//             $.ajax({
-//                 type:'POST',
-//                 url: "{% url 'current-cart' %}",
-//                 data : {
-//                     name : $('#id_name').val(),
-//                     price : $('#id_price').val(),
-//                     csrfmiddlewaretoken: '{{ csrf_token }}',
-//                 },
-//                 success : function(data){
-//                     //console.log(response);
-//                   //alert(data)
-//                 },
-//     });
+    $(document).on('submit','#postForm',function(e){
+          e.preventDefault();
+        //   form = document.getElementById('postForm')
+        //     var formData = new FormData(form)
+            $.ajax({
+                type:'POST',
+                url: "{% url 'cart-form' %}",
+                data : {
+                    product : $('#id_product').val(),
+                    qty : $('#id_qty').val(),
+                    order_id: '{{ order.order_id }}',
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    //formData : formData,
+                },
+                success : function(data){
+                    console.log(data);
+                  //alert(data)
+                },
+    });
 
-//   });
+  });
 </script>
 {% endblock %}
