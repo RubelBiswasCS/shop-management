@@ -58,16 +58,6 @@
               
         </tbody>
         
-        <!-- {% for item in orderItem %}
-            
-            <tr>
-                <td> {{ item.product.name }}</td>
-                <td> {{ item.product.unit_price }}</td>
-                <td> {{ item.qty }}</td>
-                <td> {{ item.get_total }}</td>
-                
-            </tr> 
-        {% endfor %}-->
         
     </table>
     <!--When the bellow button clicked invoice will be created based on customer info and selected item -->
@@ -102,12 +92,7 @@
                     $("#tbd").empty();
                     var total = 0;
                     for (var key in response.c_o_i){
-                        // for (var k in response.c_o_i[key].product){
-                        //     var t =" <tr>"
-                        //      +"<td>"+response.c_o_i[key].product[k].name+ "</td>"
-                        //               +"<td>"+response.c_o_i[key][k].unit_price + "</td>";
-                        //               $("#tbd").append(t);
-                        // }
+                       
                         var temp = " <tr>"
                              +"<td>"+response.c_o_i[key].product__name+ "</td>"
                                       +"<td>"+response.c_o_i[key].product__unit_price + "</td>"
