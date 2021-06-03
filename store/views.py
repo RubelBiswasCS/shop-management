@@ -273,6 +273,7 @@ def cart_form(request):
         
         order_id = request.POST.get('order_id')
         order = Order.objects.get(order_id=order_id)
+        
         if product.current_stock >= int(qty):
 
 
@@ -287,8 +288,11 @@ def cart_form(request):
                 
                 OrderItem.objects.filter(order__order_id=order.order_id,
                 product__product_code=product.product_code).update(qty=qty)
+            #response = "Item added to cart"
+        else:
+            response = "insufficent stock"
        
-    return HttpResponse({product})
+    return HttpResponse(response)
 def current_cart(request):
     order_id = request.POST.get('order_id')
     current_ordered_items = OrderItem.objects.filter(order__order_id=order_id).values('product__name','product__unit_price','qty')

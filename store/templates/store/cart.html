@@ -121,10 +121,10 @@
                     $("#tbd").append(f_row);
                 },
                 error : function(response){
-                    alert("An error occured");
+                    //alert("An error occured");
                 },
             });
-        },1000);
+        },100);
     });
 
     $(document).on('submit','#postForm',function(e){
@@ -142,8 +142,8 @@
                     //formData : formData,
                 },
                 success : function(data){
-                    console.log(data);
-                  //alert(data)
+                    //console.log(data);
+                  alert(data)
                 },
     });
 
